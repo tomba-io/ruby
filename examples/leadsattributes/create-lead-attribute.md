@@ -1,0 +1,16 @@
+```ruby
+require 'tomba'
+
+client = Tomba::Client.new()
+
+client
+    .set_key('ta_xxxx') # Your Key
+    .set_secret('ts_xxxx') # Your Secret
+;
+
+leads_attributes = Tomba::LeadsAttributes.new(client);
+
+response = leads_attributes.create_lead_attribute();
+
+puts response
+```
