@@ -17,7 +17,7 @@ The free plan is limited to 25 search request and 50 verification a month,  To e
 
 ## Installation
 
-To install via [Gem](https://rubygems.org/):
+To install via [Gem](https://rubygems.org/gems/tomba):
 
 ```bash
 gem install tomba --save
