@@ -1,6 +1,6 @@
 # [<img src="https://app.tomba.io/tomba/f250de39816043cfc8f5578fa078a79e.svg" alt="Tomba" width="25"/>](https://tomba.io/) Tomba Email Finder Ruby Client Library
 
-This is the official Ruby client library for the [Tomba.io](https://tomba.io.io) Email Finder API,
+This is the official Ruby client library for the [Tomba.io](https://tomba.io) Email Finder API,
 allowing you to:
 
 - [Domain Search.](https://tomba.io/domain-search) (Search emails are based on the website You give one domain name and it returns all the email addresses found on the internet.)
@@ -110,7 +110,7 @@ Founded in 2020, Tomba prides itself on being the most reliable, accurate, and i
 
 ## Contribution
 
-1. Fork it (<https://github.com/tomba-io/go/fork>)
+1. Fork it (<https://github.com/tomba-io/ruby/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
