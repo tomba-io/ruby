@@ -14,10 +14,13 @@ module Tomba
                 raise Tomba::Exception.new('Missing required parameter: "lastName"')
             end
 
-            path = '/email-finder/{domain}'
-                .gsub('{domain}', domain)
+            path = '/email-finder'
 
             params = {}
+
+            if !domain.nil?
+                params[:domain] = domain
+            end
 
             if !first_name.nil?
                 params[:first_name] = first_name
@@ -32,9 +35,61 @@ module Tomba
             }, params);
         end
 
+        def author_finder(url:)
+            if url.nil?
+                raise Tomba::Exception.new('Missing required parameter: "url"')
+            end
+
+            path = '/author-finder'
+
+            params = {}
+
+            if !url.nil?
+                params[:url] = url
+            end
+
+
+            return @client.call('get', path, {
+                'content-type' => 'application/json',
+            }, params);
+        end
+
+        def linkedin_finder(url:)
+            if url.nil?
+                raise Tomba::Exception.new('Missing required parameter: "url"')
+            end
+
+            path = '/linkedin-finder'
+
+            params = {}
+
+            if !url.nil?
+                params[:url] = url
+            end
+
+
+            return @client.call('get', path, {
+                'content-type' => 'application/json',
+            }, params);
+        end
+
+        def phone_finder(email:)
+            if email.nil?
+                raise Tomba::Exception.new('Missing required parameter: "email"')
+            end
+
+            path = '/phone/{email}'
+                .gsub('{email}', email)
+
+            params = {}
+
+            return @client.call('get', path, {
+                'content-type' => 'application/json',
+            }, params);
+        end
 
         protected
 
         private
-    end 
+    end
 end

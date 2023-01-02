@@ -20,7 +20,7 @@ module Tomba
             @headers = {
                 'content-type' => '',
                 'user-agent' => RUBY_PLATFORM + ':ruby-' + RUBY_VERSION,
-                'x-sdk-version' => 'tomba:ruby:v1.0.0'
+                'x-sdk-version' => 'tomba:ruby:v1.0.1'
 
             }
             @endpoint = 'https://api.tomba.io/v1';

@@ -6,10 +6,13 @@ module Tomba
                 raise Tomba::Exception.new('Missing required parameter: "domain"')
             end
 
-            path = '/domain-search/{domain}'
-                .gsub('{domain}', domain)
+            path = '/domain-search/'
 
             params = {}
+
+            if !domain.nil?
+                params[:domain] = domain
+            end
 
             if !page.nil?
                 params[:page] = page
@@ -32,5 +35,5 @@ module Tomba
         protected
 
         private
-    end 
+    end
 end
