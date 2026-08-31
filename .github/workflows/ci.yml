@@ -15,7 +15,7 @@ jobs:
         ruby-version: ['3.2']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Set up Ruby ${{ matrix.ruby-version }}
         uses: ruby/setup-ruby@v1
@@ -23,11 +23,11 @@ jobs:
           ruby-version: ${{ matrix.ruby-version }}
           bundler-cache: true
 
-      - name: Install dependencies
-        run: bundle install
-
       - name: Run RuboCop
         run: bundle exec rubocop
 
       - name: Run RSpec
         run: bundle exec rspec
+        env:
+          TOMBA_API_KEY: ${{ secrets.TOMBA_API_KEY }}
+          TOMBA_SECRET_KEY: ${{ secrets.TOMBA_SECRET_KEY }}
