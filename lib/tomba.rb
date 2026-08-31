@@ -1,9 +1,14 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'uri'
 require 'json'
+require_relative 'tomba/version'
 require_relative 'tomba/client'
 require_relative 'tomba/service'
 require_relative 'tomba/exception'
+
+# Existing services
 require_relative 'tomba/services/account'
 require_relative 'tomba/services/domain'
 require_relative 'tomba/services/finder'
@@ -16,3 +21,15 @@ require_relative 'tomba/services/logs'
 require_relative 'tomba/services/keys'
 require_relative 'tomba/services/leads-lists'
 require_relative 'tomba/services/leads-attributes'
+
+# New services
+require_relative 'tomba/services/phone'
+require_relative 'tomba/services/format'
+require_relative 'tomba/services/similar'
+require_relative 'tomba/services/technology'
+require_relative 'tomba/services/location'
+require_relative 'tomba/services/enrichment'
+require_relative 'tomba/services/reveal'
+require_relative 'tomba/services/flag'
+require_relative 'tomba/services/leads'
+require_relative 'tomba/services/bulk'

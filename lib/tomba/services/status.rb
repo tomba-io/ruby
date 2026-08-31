@@ -1,45 +1,52 @@
+# frozen_string_literal: true
+
 module Tomba
-    class Status < Service
+  # Status service for domain status and autocomplete.
+  #
+  # Provides methods to check domain status and get domain suggestions.
+  #
+  # @see https://docs.tomba.io/api/status
+  class Status < Service
+    # Domain Status
+    #
+    # Returns the status of a domain, including whether it is webmail or disposable.
+    #
+    # @see https://docs.tomba.io/api/status#domain-status
+    # @param domain [String] the domain name to check
+    # @return [Hash] API response containing domain status
+    # @raise [Tomba::Exception]
+    def domain_status(domain:)
+      raise Tomba::Exception, 'Missing required parameter: "domain"' if domain.nil?
 
-        def domain_status(domain:)
-            if domain.nil?
-                raise Tomba::Exception.new('Missing required parameter: "domain"')
-            end
+      path = '/domain-status'
 
-            path = '/domain-status'
+      params = {}
+      params[:domain] = domain unless domain.nil?
 
-            params = {}
+      @client.call('get', path, {
+                     'content-type' => 'application/json'
+                   }, params)
+    end
 
-            if !domain.nil?
-                params[:domain] = domain
-            end
+    # Autocomplete
+    #
+    # Returns domain suggestions based on a search query.
+    #
+    # @see https://docs.tomba.io/api/status#domain-suggestions
+    # @param query [String] the search query for domain suggestions
+    # @return [Hash] API response containing domain suggestions
+    # @raise [Tomba::Exception]
+    def auto_complete(query:)
+      raise Tomba::Exception, 'Missing required parameter: "query"' if query.nil?
 
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
-        end
+      path = '/domain-suggestions'
 
-        def auto_complete(query:)
-            if query.nil?
-                raise Tomba::Exception.new('Missing required parameter: "query"')
-            end
+      params = {}
+      params[:query] = query unless query.nil?
 
-            path = '/domains-suggestion'
-
-            params = {}
-
-            if !query.nil?
-                params[:query] = query
-            end
-
-            return @client.call('get', path, {
-                'content-type' => 'application/json',
-            }, params);
-        end
-
-
-        protected
-
-        private
-    end 
+      @client.call('get', path, {
+                     'content-type' => 'application/json'
+                   }, params)
+    end
+  end
 end

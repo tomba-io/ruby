@@ -51,3 +51,4 @@ build-iPhoneSimulator/
 /test.rb
 /test/
 /doc/
+.env
