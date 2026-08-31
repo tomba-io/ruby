@@ -8,6 +8,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
 
     steps:
       - uses: actions/checkout@v5
@@ -20,10 +23,5 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Build gem
-        run: gem build tomba.gemspec
-
-      - name: Push gem
-        env:
-          GEM_HOST_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
-        run: gem push tomba-*.gem
+      - name: Release gem
+        uses: rubygems/release-gem@v1
