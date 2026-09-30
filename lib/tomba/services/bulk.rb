@@ -69,7 +69,7 @@ module Tomba
     #
     # Creates a new bulk task of the specified type.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param data [Hash] the bulk task data
     # @return [Hash] API response containing the created bulk task
@@ -90,7 +90,7 @@ module Tomba
     #
     # Launches (starts) a bulk task by type and ID.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param id [String] the bulk task ID
     # @return [Hash] API response
@@ -101,11 +101,11 @@ module Tomba
       validate_type(type)
       raise Tomba::Exception, 'Missing required parameter: "id"' if id.nil?
 
-      path = "/bulk/#{type}/#{id}/launch"
+      path = "/bulk/#{type}/#{id}"
 
       params = {}
 
-      @client.call('post', path, {
+      @client.call('put', path, {
                      'content-type' => 'application/json'
                    }, params)
     end
@@ -114,7 +114,7 @@ module Tomba
     #
     # Deletes a bulk task by type and ID.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param id [String] the bulk task ID
     # @return [Hash] API response
@@ -125,7 +125,7 @@ module Tomba
       validate_type(type)
       raise Tomba::Exception, 'Missing required parameter: "id"' if id.nil?
 
-      path = "/bulk/#{type}/#{id}"
+      path = "/bulk/#{type}/#{id}/delete"
 
       params = {}
 
@@ -138,7 +138,7 @@ module Tomba
     #
     # Archives a bulk task by type and ID.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param id [String] the bulk task ID
     # @return [Hash] API response
@@ -153,7 +153,7 @@ module Tomba
 
       params = {}
 
-      @client.call('post', path, {
+      @client.call('delete', path, {
                      'content-type' => 'application/json'
                    }, params)
     end
@@ -162,7 +162,7 @@ module Tomba
     #
     # Renames a bulk task by type and ID.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param id [String] the bulk task ID
     # @param name [String] the new name for the bulk task
@@ -212,7 +212,7 @@ module Tomba
     #
     # Downloads the results of a completed bulk task.
     #
-    # @see https://docs.tomba.io/api/bulk-task
+    # @see https://docs.tomba.io/api/bulks
     # @param type [String] the bulk task type
     # @param id [String] the bulk task ID
     # @return [Hash] API response containing download data
@@ -227,9 +227,9 @@ module Tomba
 
       params = {}
 
-      @client.call('get', path, {
-                     'content-type' => 'application/json'
-                   }, params)
+      @client.call_raw('get', path, {
+                         'content-type' => 'application/json'
+                       }, params)
     end
   end
 end

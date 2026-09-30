@@ -56,6 +56,11 @@ module Tomba
       fetch(method, uri, headers, params)
     end
 
+    def call_raw(method, path = '', headers = {}, params = {})
+      uri = URI.parse(@endpoint + path + (method == METHOD_GET && params.length ? "?#{encode(params)}" : ''))
+      fetch_raw(method, uri, headers, params)
+    end
+
     private
 
     def fetch(method, uri, headers, params, limit = 5)
@@ -102,6 +107,33 @@ module Tomba
       raise Tomba::Exception.new(res['errors']['message'], res['errors']['code'], res) if response.code.to_i >= 400
 
       { 'data' => res, 'rate_limit' => parse_rate_limit(response) }
+    end
+
+    def fetch_raw(method, uri, headers, params, limit = 5)
+      raise ArgumentError, 'Too Many HTTP Redirects' if limit.zero?
+
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = (uri.scheme == 'https')
+      http.read_timeout = 120
+      http.open_timeout = 120
+
+      headers = @headers.merge(headers)
+
+      begin
+        response = http.send_request(method.upcase, uri.request_uri, '', headers)
+      rescue StandardError => e
+        raise Tomba::Exception, e.message
+      end
+
+      if response.instance_of?(Net::HTTPRedirection) || response.instance_of?(Net::HTTPMovedPermanently)
+        location = response['location']
+        uri = URI.parse("#{uri.scheme}://#{uri.host}#{location}")
+        return fetch_raw(method, uri, headers, {}, limit - 1)
+      end
+
+      raise Tomba::Exception.new(response.body, response.code, nil) if response.code.to_i >= 400
+
+      { 'data' => response.body, 'rate_limit' => parse_rate_limit(response) }
     end
 
     def parse_rate_limit(response)
