@@ -109,7 +109,7 @@ module Tomba
       { 'data' => res, 'rate_limit' => parse_rate_limit(response) }
     end
 
-    def fetch_raw(method, uri, headers, params, limit = 5)
+    def fetch_raw(method, uri, headers, _params, limit = 5)
       raise ArgumentError, 'Too Many HTTP Redirects' if limit.zero?
 
       http = Net::HTTP.new(uri.host, uri.port)
