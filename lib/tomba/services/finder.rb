@@ -72,7 +72,7 @@ module Tomba
     def linkedin_finder(url:, webhook_url: nil)
       raise Tomba::Exception, 'Missing required parameter: "url"' if url.nil?
 
-      path = '/linkedin-finder'
+      path = '/linkedin'
 
       params = {}
       params[:url] = url unless url.nil?

@@ -17,7 +17,7 @@ module Tomba
     # @return [Hash] API response containing the list of flags
     # @raise [Tomba::Exception]
     def list_flags(page: nil, limit: nil)
-      path = '/flags'
+      path = '/flag'
 
       params = {}
       params[:page] = page unless page.nil?
@@ -33,17 +33,21 @@ module Tomba
     # Creates a new flag for an email address.
     #
     # @see https://docs.tomba.io/api/flag#create-flag
-    # @param email [String] the email address to flag
-    # @param reason [String, nil] optional reason for the flag
+    # @param flag_type [String] the type of flag
+    # @param value [String] the value to flag
+    # @param reason [String] the reason for the flag
+    # @param comment [String, nil] optional comment for the flag
     # @return [Hash] API response containing the created flag
     # @raise [Tomba::Exception]
-    def create_flag(email:, reason: nil)
-      raise Tomba::Exception, 'Missing required parameter: "email"' if email.nil?
+    def create_flag(flag_type:, value:, reason:, comment: nil)
+      raise Tomba::Exception, 'Missing required parameter: "flag_type"' if flag_type.nil?
+      raise Tomba::Exception, 'Missing required parameter: "value"' if value.nil?
+      raise Tomba::Exception, 'Missing required parameter: "reason"' if reason.nil?
 
-      path = '/flags'
+      path = '/flag'
 
-      params = { email: email }
-      params[:reason] = reason unless reason.nil?
+      params = { flag_type: flag_type, value: value, reason: reason }
+      params[:comment] = comment unless comment.nil?
 
       @client.call('post', path, {
                      'content-type' => 'application/json'

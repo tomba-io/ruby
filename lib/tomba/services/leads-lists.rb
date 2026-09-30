@@ -49,12 +49,15 @@ module Tomba
     # Creates a new leads list for organizing leads.
     #
     # @see https://docs.tomba.io/api/leads-lists#create-leads-list
+    # @param name [String] the name of the list
     # @return [Hash] API response containing the new list
     # @raise [Tomba::Exception]
-    def create_list
+    def create_list(name:)
+      raise Tomba::Exception, 'Missing required parameter: "name"' if name.nil?
+
       path = '/leads_lists'
 
-      params = {}
+      params = { name: name }
 
       @client.call('post', path, {
                      'content-type' => 'application/json'
@@ -67,14 +70,16 @@ module Tomba
     #
     # @see https://docs.tomba.io/api/leads-lists#update-leads-list
     # @param id [String] the list ID to update
+    # @param name [String] the new name of the list
     # @return [Hash] API response
     # @raise [Tomba::Exception]
-    def update_list_id(id:)
+    def update_list_id(id:, name:)
       raise Tomba::Exception, 'Missing required parameter: "id"' if id.nil?
+      raise Tomba::Exception, 'Missing required parameter: "name"' if name.nil?
 
       path = "/leads_lists/#{id}"
 
-      params = {}
+      params = { name: name }
 
       @client.call('put', path, {
                      'content-type' => 'application/json'

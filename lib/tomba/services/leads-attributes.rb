@@ -15,7 +15,7 @@ module Tomba
     # @return [Hash] API response containing the attributes
     # @raise [Tomba::Exception]
     def get_lead_attributes
-      path = '/leads/attributes'
+      path = '/attributes'
 
       params = {}
 
@@ -35,7 +35,7 @@ module Tomba
     def delete_lead_attribute(id:)
       raise Tomba::Exception, 'Missing required parameter: "id"' if id.nil?
 
-      path = "/leads/attributes/#{id}"
+      path = "/attributes/#{id}"
 
       params = {}
 
@@ -52,7 +52,7 @@ module Tomba
     # @return [Hash] API response containing the new attribute
     # @raise [Tomba::Exception]
     def create_lead_attribute
-      path = '/leads/attributes'
+      path = '/attributes'
 
       params = {}
 
@@ -72,7 +72,7 @@ module Tomba
     def update_lead_attribute(id:)
       raise Tomba::Exception, 'Missing required parameter: "id"' if id.nil?
 
-      path = "/leads/attributes/#{id}"
+      path = "/attributes/#{id}"
 
       params = {}
 

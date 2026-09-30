@@ -18,9 +18,9 @@ module Tomba
     def companies_search(params)
       raise Tomba::Exception, 'Missing required parameter: "params"' if params.nil? || params.empty?
 
-      path = '/reveal'
+      path = '/reveal/search'
 
-      @client.call('get', path, {
+      @client.call('post', path, {
                      'content-type' => 'application/json'
                    }, params)
     end

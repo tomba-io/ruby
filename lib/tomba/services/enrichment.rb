@@ -19,7 +19,7 @@ module Tomba
     def person(email, webhook_url: nil)
       raise Tomba::Exception, 'Missing required parameter: "email"' if email.nil?
 
-      path = '/enrichment/person'
+      path = '/people/find'
 
       params = { email: email }
       params[:webhook_url] = webhook_url unless webhook_url.nil?
@@ -40,7 +40,7 @@ module Tomba
     def company(domain)
       raise Tomba::Exception, 'Missing required parameter: "domain"' if domain.nil?
 
-      path = '/enrichment/company'
+      path = '/companies/find'
 
       params = { domain: domain }
 
@@ -60,7 +60,7 @@ module Tomba
     def combined(email)
       raise Tomba::Exception, 'Missing required parameter: "email"' if email.nil?
 
-      path = '/enrichment/combined'
+      path = '/combined/find'
 
       params = { email: email }
 
